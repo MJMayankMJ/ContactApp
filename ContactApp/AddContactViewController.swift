@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 protocol AddContactDelegate: AnyObject {
     func didAddContact(_ contact: Contact)
 }
