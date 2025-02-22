@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tYs-Ea-cz5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n8j-h7-uTg">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -31,7 +31,7 @@
                             <outlet property="delegate" destination="WgX-yU-TlJ" id="lys-Gx-4eX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contacts" id="Yl9-Aa-OhS">
+                    <navigationItem key="navigationItem" title="Contacts" id="Yl9-Aa-OhS" customClass="Sear">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="VKf-tj-rpo"/>
                     </navigationItem>
                     <connections>
@@ -41,7 +41,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xFq-Lg-eug" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="895" y="-105"/>
+            <point key="canvasLocation" x="-976" y="-120"/>
         </scene>
         <!--Detail Contact View Controller-->
         <scene sceneID="ukY-rY-mMu">
@@ -128,15 +128,22 @@
                             <constraint firstItem="YD7-0M-XWb" firstAttribute="top" secondItem="VLC-7z-9Hd" secondAttribute="bottom" constant="10" id="rcQ-hp-N0i"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="YFA-55-wrq"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="YFA-55-wrq">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="I5o-S1-OCU">
+                            <connections>
+                                <action selector="favoriteButtonTapped:" destination="V1H-zc-rfB" id="XxU-Ca-0ho"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="favoriteButton" destination="I5o-S1-OCU" id="l3E-tE-obn"/>
                         <outlet property="nameLabel" destination="mua-bc-0Rf" id="ugS-2c-kGc"/>
                         <outlet property="phoneLabel" destination="YD7-0M-XWb" id="P3N-Dp-pb3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-JO-vcB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852.6717557251907" y="-294.36619718309862"/>
+            <point key="canvasLocation" x="146" y="-445"/>
         </scene>
         <!--Add Contacts-->
         <scene sceneID="1JK-on-ftZ">
@@ -174,7 +181,7 @@
                             <constraint firstItem="gek-Ck-Zzg" firstAttribute="trailing" secondItem="rev-jx-rew" secondAttribute="trailing" id="xoP-YR-jZY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Contacts" id="Xtc-Hy-Ruf">
+                    <navigationItem key="navigationItem" title="Add Contacts" largeTitleDisplayMode="never" id="Xtc-Hy-Ruf">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="Rmi-qm-DkW">
                             <connections>
                                 <action selector="saveContact:" destination="Vem-J9-qwo" id="LCp-st-xku"/>
@@ -188,12 +195,61 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpM-ct-LDL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="361"/>
+            <point key="canvasLocation" x="1072.5190839694656" y="346.47887323943661"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="QfF-xw-Bsx">
+            <objects>
+                <tabBarController id="n8j-h7-uTg" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4wg-1K-ehU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="tYs-Ea-cz5" kind="relationship" relationship="viewControllers" id="VGe-uv-77P"/>
+                        <segue destination="MdH-Fc-yU3" kind="relationship" relationship="viewControllers" id="1fs-GK-vXj"/>
+                        <segue destination="iLM-mb-zKR" kind="relationship" relationship="viewControllers" id="L1F-nf-Vzf"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MRb-Z6-j8f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3179" y="-120"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="OOV-m2-2Xp">
+            <objects>
+                <tableViewController id="Jl3-kq-5fO" customClass="FavoritesViewController" customModule="ContactApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="8P2-4v-C7V">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" id="UMP-Bq-qaM">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UMP-Bq-qaM" id="IAD-rs-ZeE">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Jl3-kq-5fO" id="Gtd-Tc-NaS"/>
+                            <outlet property="delegate" destination="Jl3-kq-5fO" id="3tD-sB-4bI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favourites" id="waA-Ek-jTI"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="62q-vR-8ZP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-976" y="-869"/>
+        </scene>
+        <!--Contacts-->
         <scene sceneID="0yn-Pd-mQ6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tYs-Ea-cz5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Contacts" selectedImage="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sbO-bZ-rka">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -206,20 +262,318 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgZ-cG-iC4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-53" y="-106"/>
+            <point key="canvasLocation" x="-2112" y="-120"/>
+        </scene>
+        <!--Keypad View Controller-->
+        <scene sceneID="rzA-c3-fe8">
+            <objects>
+                <viewController id="7N4-a6-QGy" customClass="KeypadViewController" customModule="ContactApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wZ8-ci-l07">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="EQe-WU-W4L">
+                                <rect key="frame" x="62.666666666666657" y="250" width="268" height="352"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="3O7-EZ-27x">
+                                        <rect key="frame" x="0.0" y="0.0" width="268" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2L-Uf-Fie">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="Au6-NL-ZbH"/>
+                                                    <constraint firstAttribute="width" constant="70" id="W7N-x5-eZ0"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="1"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="bdy-L5-ViM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAJ-A4-fNf">
+                                                <rect key="frame" x="99" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="74J-pM-FqQ"/>
+                                                    <constraint firstAttribute="height" constant="70" id="fA9-zs-qE1"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="2"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="LlU-ql-jzF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-jv-sRI">
+                                                <rect key="frame" x="198.00000000000003" y="0.0" width="69.999999999999972" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="8LR-94-Acb"/>
+                                                    <constraint firstAttribute="height" constant="70" id="XEY-QA-fgJ"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="3"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="CC1-hH-exC"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="khM-Hf-MtB">
+                                        <rect key="frame" x="0.0" y="94" width="268" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voc-V2-sWL">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="5Qg-dd-u2X"/>
+                                                    <constraint firstAttribute="width" constant="70" id="dA2-mc-0xz"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="4"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="2Ht-9R-WJU"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJ6-21-UMz">
+                                                <rect key="frame" x="99" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="ydY-29-Dpn"/>
+                                                    <constraint firstAttribute="height" constant="70" id="yki-yy-0j0"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="5"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="UJc-Qe-xbu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mp-No-Uy6">
+                                                <rect key="frame" x="198.00000000000003" y="0.0" width="69.999999999999972" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="FKo-iB-10Y"/>
+                                                    <constraint firstAttribute="height" constant="70" id="edi-9s-JHN"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="6"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="8is-p9-HDP"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="w73-z1-dOZ">
+                                        <rect key="frame" x="0.0" y="188" width="268" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLh-JL-EeL">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="Wms-Sn-EfI"/>
+                                                    <constraint firstAttribute="width" constant="70" id="aPM-2k-rJY"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="7"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="zZA-GF-Hqr"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0o3-7M-Els">
+                                                <rect key="frame" x="99" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="4Qs-Ae-dit"/>
+                                                    <constraint firstAttribute="height" constant="70" id="lT4-rq-MiZ"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="8"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="Qyu-UB-2zJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGP-14-UGl">
+                                                <rect key="frame" x="198.00000000000003" y="0.0" width="69.999999999999972" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="Kk5-zj-Rgn"/>
+                                                    <constraint firstAttribute="width" constant="70" id="VS0-Er-W9g"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="9"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="cq0-hO-fFs"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="Yxl-Lc-J0V">
+                                        <rect key="frame" x="0.0" y="282" width="268" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-jg-4DS">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="OFk-bw-1B9"/>
+                                                    <constraint firstAttribute="height" constant="70" id="bCu-LZ-GBF"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="*"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="guG-qy-rDo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U1i-wo-CYB">
+                                                <rect key="frame" x="99" y="0.0" width="70" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="qUu-kH-nCi"/>
+                                                    <constraint firstAttribute="height" constant="70" id="uNi-6j-7PL"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="0"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="07e-LX-z3F"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMW-xJ-US1">
+                                                <rect key="frame" x="198.00000000000003" y="0.0" width="69.999999999999972" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="D6M-QM-NTM"/>
+                                                    <constraint firstAttribute="width" constant="70" id="ybC-0H-gmG"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="#"/>
+                                                <connections>
+                                                    <action selector="numberButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="dt1-jF-2a4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuu-z8-Dq5">
+                                <rect key="frame" x="196.66666666666666" y="113" width="0.0" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Ssr-da-qPa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="jex-P9-REG">
+                                <rect key="frame" x="62.666666666666657" y="632" width="268" height="70"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xc-NE-MNy">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="D2Z-wp-8Xa"/>
+                                            <constraint firstAttribute="width" constant="70" id="Vil-OK-i1Q"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j72-H3-THb">
+                                        <rect key="frame" x="99" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="Fdu-b8-MHl"/>
+                                            <constraint firstAttribute="width" constant="70" id="Pjk-eq-UzH"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="phone" catalog="system">
+                                            <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="callButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="ltq-KH-SRB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yr0-A1-0sz">
+                                        <rect key="frame" x="198.00000000000003" y="0.0" width="69.999999999999972" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="NTo-BG-QZZ"/>
+                                            <constraint firstAttribute="height" constant="70" id="a3p-kk-TUg"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="delete.left.fill" catalog="system">
+                                            <color key="baseForegroundColor" systemColor="opaqueSeparatorColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="deleteButtonTapped:" destination="7N4-a6-QGy" eventType="touchUpInside" id="K2G-qT-rHz"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="22c-tL-vYq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EQe-WU-W4L" firstAttribute="centerX" secondItem="wZ8-ci-l07" secondAttribute="centerX" id="N5i-GN-giP"/>
+                            <constraint firstItem="Vuu-z8-Dq5" firstAttribute="top" secondItem="22c-tL-vYq" secondAttribute="top" constant="10" id="R1n-0r-1HI"/>
+                            <constraint firstItem="Vuu-z8-Dq5" firstAttribute="centerX" secondItem="wZ8-ci-l07" secondAttribute="centerX" id="jAV-vq-0MY"/>
+                            <constraint firstItem="jex-P9-REG" firstAttribute="centerX" secondItem="wZ8-ci-l07" secondAttribute="centerX" id="kFu-X8-rGM"/>
+                            <constraint firstItem="jex-P9-REG" firstAttribute="top" secondItem="EQe-WU-W4L" secondAttribute="bottom" constant="30" id="wrf-wN-Q5V"/>
+                            <constraint firstItem="EQe-WU-W4L" firstAttribute="centerY" secondItem="wZ8-ci-l07" secondAttribute="centerY" id="xmD-Pi-Vae"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5hE-Gm-Zcd"/>
+                    <connections>
+                        <outlet property="numberLabel" destination="Vuu-z8-Dq5" id="2pv-7Q-FQc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Eiq-6h-2Hs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1187.0229007633586" y="679.57746478873241"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="sMN-DK-fAB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iLM-mb-zKR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favourites" selectedImage="star.fill" catalog="system" id="TCn-c5-tVa"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SOm-a8-AKR">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jl3-kq-5fO" kind="relationship" relationship="rootViewController" id="pYR-OA-VRS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="87Q-oI-k8l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2112" y="-869"/>
+        </scene>
+        <!--Keypad-->
+        <scene sceneID="3K4-T9-zis">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MdH-Fc-yU3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Keypad" selectedImage="circle.grid.3x3.fill" catalog="system" id="fkE-Bp-DKB"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p3v-W6-dze">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7N4-a6-QGy" kind="relationship" relationship="rootViewController" id="WnP-wv-vPA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4d-jY-lmY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2112.2137404580153" y="679.57746478873241"/>
         </scene>
     </scenes>
     <resources>
+        <image name="circle.grid.3x3.fill" catalog="system" width="128" height="110"/>
+        <image name="delete.left.fill" catalog="system" width="128" height="102"/>
         <image name="mail" catalog="system" width="128" height="93"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="phone" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="video" catalog="system" width="128" height="82"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

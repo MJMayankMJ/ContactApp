@@ -8,42 +8,50 @@
 
 import UIKit
 
-class DetailContactViewController: UIViewController {
+protocol FavoritesDelegate: AnyObject {
+    func didUpdateFavorites(_ contact: Contact, isFavorite: Bool)
+}
 
+class DetailContactViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIBarButtonItem!
 
     var contact: Contact?
+    weak var favoritesDelegate: FavoritesDelegate?
+    var favoriteContacts = FavoritesManager.shared.getFavorites() //to check if the tap is working purely for debugging
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let contact = contact {
             nameLabel.text = contact.name
             phoneLabel.text = "mobile number" + "   :    " + contact.phoneNumber
+            updateFavoriteButton()
         }
     }
-    
-    @IBAction func messageButtonTapped(_ sender: UIButton) {
-        showAlert(title: "Message", message: "Messaging \(contact?.name ?? "this contact").")
+
+    @IBAction func favoriteButtonTapped(_ sender: UIBarButtonItem) {
+        guard let contact = contact else { return }
+
+        let isNowFavorite = !FavoritesManager.shared.isFavorite(contact)
+        FavoritesManager.shared.toggleFavorite(contact)
+
+        favoritesDelegate?.didUpdateFavorites(contact, isFavorite: isNowFavorite)
+        updateFavoriteButton()
+        
+        //to check
+        for contact in favoriteContacts {
+            print(contact)
+        }
     }
+
     
-    @IBAction func callButtonTapped(_ sender: UIButton) {
-        showAlert(title: "Call", message: "Calling \(contact?.name ?? "this contact").")
-    }
-    
-    @IBAction func videoButtonTapped(_ sender: UIButton) {
-        showAlert(title: "Video", message: "Starting video call with \(contact?.name ?? "this contact").")
-    }
-    
-    @IBAction func mailButtonTapped(_ sender: UIButton) {
-        showAlert(title: "Mail", message: "Sending mail to \(contact?.name ?? "this contact").")
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
+    private func updateFavoriteButton() {
+        guard let contact = contact else { return }
+        let isFavorite = FavoritesManager.shared.isFavorite(contact)
+        let imageName = isFavorite ? "star.fill" : "star"
+        favoriteButton.image = UIImage(systemName: imageName)
+
     }
 }
-

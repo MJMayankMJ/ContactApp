@@ -8,5 +8,6 @@
 import Foundation
 
 struct K {
-    static let cellIdentifier = "ContactCell"
+    static let contactCellIdentifier = "ContactCell"
+    static let favouriteCellIdentifier = "FavouriteCell"
 }

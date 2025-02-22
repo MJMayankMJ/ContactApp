@@ -107,4 +107,3 @@ func getSectionedContacts() -> [ContactSection] {
     }
     return sortedSections
 }
-
