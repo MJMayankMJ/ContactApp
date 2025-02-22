@@ -61,7 +61,7 @@
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="messageButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="zBA-vH-xLg"/>
+                                            <action selector="messageButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="bdW-GF-2ce"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pRO-oO-iPh">
@@ -71,7 +71,7 @@
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="callButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="wtR-m9-ZhM"/>
+                                            <action selector="callButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="WlS-f9-Fr0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xc-yF-WDD">
@@ -81,7 +81,7 @@
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="videoButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="OmM-Cu-BZT"/>
+                                            <action selector="videoButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="unn-Ed-VQo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfD-Z8-Fbx">
@@ -91,7 +91,7 @@
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="mailButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="h5d-PS-sdY"/>
+                                            <action selector="mailButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="qVq-Qg-eCl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -249,7 +249,7 @@
         <scene sceneID="0yn-Pd-mQ6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tYs-Ea-cz5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" selectedImage="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
+                    <tabBarItem key="tabBarItem" title="Contacts" image="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sbO-bZ-rka">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -506,6 +506,20 @@
                     </view>
                     <navigationItem key="navigationItem" id="5hE-Gm-Zcd"/>
                     <connections>
+                        <outlet property="button0" destination="U1i-wo-CYB" id="EFq-0J-mhZ"/>
+                        <outlet property="button1" destination="E2L-Uf-Fie" id="qjg-3b-BrU"/>
+                        <outlet property="button2" destination="sAJ-A4-fNf" id="M2H-1N-Ru3"/>
+                        <outlet property="button3" destination="fv4-jv-sRI" id="t8O-ve-SMq"/>
+                        <outlet property="button4" destination="voc-V2-sWL" id="NXX-pp-4Df"/>
+                        <outlet property="button5" destination="WJ6-21-UMz" id="cbQ-56-yGP"/>
+                        <outlet property="button6" destination="5mp-No-Uy6" id="1W4-9i-DOq"/>
+                        <outlet property="button7" destination="uLh-JL-EeL" id="WKm-1p-sb3"/>
+                        <outlet property="button8" destination="0o3-7M-Els" id="LbD-Y7-g1M"/>
+                        <outlet property="button9" destination="jGP-14-UGl" id="V6Q-M2-FoO"/>
+                        <outlet property="buttonBack" destination="Yr0-A1-0sz" id="PBu-mu-4N4"/>
+                        <outlet property="buttonCall" destination="j72-H3-THb" id="lQE-bL-1OE"/>
+                        <outlet property="buttonHash" destination="DMW-xJ-US1" id="KuX-uN-KAI"/>
+                        <outlet property="buttonMult" destination="hXg-jg-4DS" id="FcC-YM-f1f"/>
                         <outlet property="numberLabel" destination="Vuu-z8-Dq5" id="2pv-7Q-FQc"/>
                     </connections>
                 </viewController>
@@ -517,7 +531,7 @@
         <scene sceneID="sMN-DK-fAB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iLM-mb-zKR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favourites" selectedImage="star.fill" catalog="system" id="TCn-c5-tVa"/>
+                    <tabBarItem key="tabBarItem" title="Favourites" image="star.fill" catalog="system" id="TCn-c5-tVa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SOm-a8-AKR">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -536,7 +550,7 @@
         <scene sceneID="3K4-T9-zis">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MdH-Fc-yU3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Keypad" selectedImage="circle.grid.3x3.fill" catalog="system" id="fkE-Bp-DKB"/>
+                    <tabBarItem key="tabBarItem" title="Keypad" image="circle.grid.3x3.fill" catalog="system" id="fkE-Bp-DKB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="p3v-W6-dze">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -567,13 +581,13 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
