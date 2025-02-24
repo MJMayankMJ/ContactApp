@@ -8,7 +8,7 @@
 import UIKit
 
 class KeypadViewController: UIViewController {
-
+    
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
@@ -26,32 +26,35 @@ class KeypadViewController: UIViewController {
     @IBOutlet weak var buttonCall: UIButton!
     
     var enteredNumber: String = ""
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleButtons()
+        //adjustButtonSizes()
     }
+    
     private func styleButtons() {
         let buttons: [UIButton] = [button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonCall, buttonMult, buttonHash, buttonBack]
-
+        
         for button in buttons {
             button.layer.cornerRadius = button.frame.size.width / 2
             button.clipsToBounds = true
         }
     }
-
+    
     @IBAction func numberButtonTapped(_ sender: UIButton) {
         guard let digit = sender.titleLabel?.text, enteredNumber.count < 10 else { return }
         enteredNumber.append(digit)
         updateNumberLabel()
     }
-
+    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         guard !enteredNumber.isEmpty else { return }
         enteredNumber.removeLast()
         updateNumberLabel()
     }
-
+    
     @IBAction func callButtonTapped(_ sender: UIButton) {
         if enteredNumber.count == 10 {
             showCallAlert()
@@ -59,20 +62,32 @@ class KeypadViewController: UIViewController {
             showIncompleteNumberAlert()
         }
     }
-
+    
     private func updateNumberLabel() {
         numberLabel.text = enteredNumber
     }
-
+    
     private func showCallAlert() {
         let alert = UIAlertController(title: "Calling", message: "You are calling \(enteredNumber)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
-
+    
     private func showIncompleteNumberAlert() {
         let alert = UIAlertController(title: "Invalid Number", message: "Please enter a 10-digit number before calling.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
+    
+    //i can do this but than it is not practical..... i think
+//    private func adjustButtonSizes() {
+//        let buttons: [UIButton] = [button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonCall, buttonMult, buttonHash, buttonBack]
+//        let screenWidth = UIScreen.main.bounds.width
+//        let buttonSize = screenWidth / 4 // Each button takes 1/4th of screen width
+//        
+//        for button in buttons {
+//            button.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+//            button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true // Square buttons
+//        }
+//    }
 }

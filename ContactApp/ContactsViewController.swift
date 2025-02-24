@@ -58,13 +58,21 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     // MARK: - Group Contacts into Sections
+//    private func updateSectionedContacts() {
+//        let groupedDictionary = Dictionary(grouping: contacts, by: { String($0.name.prefix(1)) })
+//        contactSections = groupedDictionary.keys.sorted().map { key in
+//            ContactSection(letter: key, contacts: groupedDictionary[key]!.sorted { $0.name < $1.name })
+//        }
+//        tableView.reloadData()
+//    }
     private func updateSectionedContacts() {
-        let groupedDictionary = Dictionary(grouping: contacts, by: { String($0.name.prefix(1)) })
+        let groupedDictionary = Dictionary(grouping: contacts, by: { String($0.name.prefix(1)).uppercased() })
         contactSections = groupedDictionary.keys.sorted().map { key in
-            ContactSection(letter: key, contacts: groupedDictionary[key]!.sorted { $0.name < $1.name })
+            ContactSection(letter: key, contacts: groupedDictionary[key]!.sorted { $0.name.lowercased() < $1.name.lowercased() })
         }
         tableView.reloadData()
     }
+
 
     @objc func addContact() {
         let addVC = storyboard?.instantiateViewController(identifier: "AddContactViewController") as! AddContactViewController

@@ -51,7 +51,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="VLC-7z-9Hd">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="VLC-7z-9Hd">
                                 <rect key="frame" x="3" y="176" width="387" height="54.666666666666657"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1HF-YZ-8zG">
@@ -67,7 +67,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pRO-oO-iPh">
                                         <rect key="frame" x="97.333333333333343" y="0.0" width="95.333333333333343" height="54.666666666666664"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" image="phone" catalog="system" imagePlacement="top" title="call">
+                                        <buttonConfiguration key="configuration" style="gray" image="phone" catalog="system" imagePlacement="top" title="phone">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -75,7 +75,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xc-yF-WDD">
-                                        <rect key="frame" x="194.66666666666666" y="0.0" width="94.999999999999972" height="54.666666666666664"/>
+                                        <rect key="frame" x="194.66666666666663" y="0.0" width="95" height="54.666666666666664"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" image="video" catalog="system" imagePlacement="top" title="video">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -136,9 +136,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="callButton" destination="pRO-oO-iPh" id="GiI-6R-v4Z"/>
                         <outlet property="favoriteButton" destination="I5o-S1-OCU" id="l3E-tE-obn"/>
+                        <outlet property="mailButton" destination="rfD-Z8-Fbx" id="40S-Al-wUY"/>
+                        <outlet property="messageButton" destination="1HF-YZ-8zG" id="vou-QO-10K"/>
                         <outlet property="nameLabel" destination="mua-bc-0Rf" id="ugS-2c-kGc"/>
                         <outlet property="phoneLabel" destination="YD7-0M-XWb" id="P3N-Dp-pb3"/>
+                        <outlet property="videoButton" destination="4Xc-yF-WDD" id="atd-nu-Hkr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-JO-vcB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -273,7 +277,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="EQe-WU-W4L">
-                                <rect key="frame" x="62.666666666666657" y="250" width="268" height="352"/>
+                                <rect key="frame" x="62.666666666666629" y="250" width="268" height="352"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="3O7-EZ-27x">
                                         <rect key="frame" x="0.0" y="0.0" width="268" height="70"/>
@@ -442,7 +446,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuu-z8-Dq5">
-                                <rect key="frame" x="196.66666666666666" y="113" width="0.0" height="45"/>
+                                <rect key="frame" x="196.66666666666663" y="113" width="0.0" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Ssr-da-qPa"/>
                                 </constraints>
@@ -451,7 +455,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="jex-P9-REG">
-                                <rect key="frame" x="62.666666666666657" y="632" width="268" height="70"/>
+                                <rect key="frame" x="62.666666666666629" y="632" width="268" height="70"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xc-NE-MNy">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
