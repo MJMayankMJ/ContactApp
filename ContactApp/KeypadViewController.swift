@@ -30,18 +30,14 @@ class KeypadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        styleButtons()
-        //adjustButtonSizes()
     }
     
-    private func styleButtons() {
-        let buttons: [UIButton] = [button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonCall, buttonMult, buttonHash, buttonBack]
-        
-        for button in buttons {
-            button.layer.cornerRadius = button.frame.size.width / 2
-            button.clipsToBounds = true
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustButtonSizes()
     }
+
+   
     
     @IBAction func numberButtonTapped(_ sender: UIButton) {
         guard let digit = sender.titleLabel?.text, enteredNumber.count < 10 else { return }
@@ -78,16 +74,54 @@ class KeypadViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
-    
-    //i can do this but than it is not practical..... i think
-//    private func adjustButtonSizes() {
-//        let buttons: [UIButton] = [button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonCall, buttonMult, buttonHash, buttonBack]
-//        let screenWidth = UIScreen.main.bounds.width
-//        let buttonSize = screenWidth / 4 // Each button takes 1/4th of screen width
-//        
-//        for button in buttons {
-//            button.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
-//            button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true // Square buttons
-//        }
-//    }
+}
+
+//MARK: - to adjust and correct the layout
+extension KeypadViewController {
+    private func adjustButtonSizes() {
+        let buttons: [UIButton] = [button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonMult, buttonHash]
+        let iconButtons: [(button: UIButton, imageName: String, tintColor: UIColor)] = [
+            (buttonCall, "phone.fill", .white),
+            (buttonBack, "delete.left.fill", .gray)
+        ]
+
+        let buttonSize = UIScreen.main.bounds.width / 7
+        let fontSize = buttonSize / 2.5
+        let iconSize = CGSize(width: buttonSize * 0.6, height: buttonSize * 0.6) // Icon scalling
+
+        for button in buttons {
+            button.layer.cornerRadius = buttonSize / 2
+            button.clipsToBounds = true
+
+            button.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+            button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true // Keep buttons square
+
+            button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+        }
+
+        for (button, imageName, tintColor) in iconButtons {
+            button.layer.cornerRadius = buttonSize / 2
+            button.clipsToBounds = true
+
+            button.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+            button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
+
+            if let image = UIImage(systemName: imageName)?.resized(to: iconSize).withRenderingMode(.alwaysTemplate) {
+                button.setImage(image, for: .normal)
+                button.tintColor = tintColor
+                button.backgroundColor = (button == buttonBack) ? .clear : nil // Back button should be clear
+            }
+        }
+    }
+}
+
+//MARK: - to make the phone icon and back icon more nicely when the screen grows
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage ?? self
+    }
 }
