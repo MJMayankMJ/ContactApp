@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		86091E982D6DC0170032764B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86091E972D6DC0170032764B /* CoreData.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		86FEC0CC2D67571D008FF978 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		86091E972D6DC0170032764B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		86FEC0B52D67571C008FF978 /* ContactApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86FEC0CB2D67571D008FF978 /* ContactAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86FEC0D52D67571D008FF978 /* ContactAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86091E982D6DC0170032764B /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		86091E962D6DC0170032764B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86091E972D6DC0170032764B /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		86FEC0AC2D67571C008FF978 = {
 			isa = PBXGroup;
 			children = (
 				86FEC0B72D67571C008FF978 /* ContactApp */,
 				86FEC0CE2D67571D008FF978 /* ContactAppTests */,
 				86FEC0D82D67571D008FF978 /* ContactAppUITests */,
+				86091E962D6DC0170032764B /* Frameworks */,
 				86FEC0B62D67571C008FF978 /* Products */,
 			);
 			sourceTree = "<group>";

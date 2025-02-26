@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Contacts-->
+        <!--Contact-->
         <scene sceneID="yyQ-6X-Xjt">
             <objects>
                 <tableViewController id="WgX-yU-TlJ" customClass="ContactsViewController" customModule="ContactApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,7 +31,7 @@
                             <outlet property="delegate" destination="WgX-yU-TlJ" id="lys-Gx-4eX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contacts" id="Yl9-Aa-OhS" customClass="Sear">
+                    <navigationItem key="navigationItem" title="Contact" id="Yl9-Aa-OhS" customClass="Sear">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="VKf-tj-rpo"/>
                     </navigationItem>
                     <connections>
@@ -249,11 +249,11 @@
             </objects>
             <point key="canvasLocation" x="-976" y="-869"/>
         </scene>
-        <!--Contacts-->
+        <!--Contact-->
         <scene sceneID="0yn-Pd-mQ6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tYs-Ea-cz5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" image="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
+                    <tabBarItem key="tabBarItem" title="Contact" image="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sbO-bZ-rka">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -593,13 +593,13 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
