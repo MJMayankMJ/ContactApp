@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Contacts {
+extension Contact {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Contacts> {
-        return NSFetchRequest<Contacts>(entityName: "Contacts")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Contact> {
+        return NSFetchRequest<Contact>(entityName: "Contact")
     }
 
     @NSManaged public var isFavorite: Bool
@@ -22,6 +22,6 @@ extension Contacts {
 
 }
 
-extension Contacts : Identifiable {
+extension Contact : Identifiable {
 
 }

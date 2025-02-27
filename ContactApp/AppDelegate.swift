@@ -35,6 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return .portrait // Locks the app in portrait mode
     }
     
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        ContactsManager.shared.preloadContactsIfNeeded()
+    }
+
+    
     // MARK: - Core Data Stack
         lazy var persistentContainer: NSPersistentContainer = {
             let container = NSPersistentContainer(name: "ContactsModel")
