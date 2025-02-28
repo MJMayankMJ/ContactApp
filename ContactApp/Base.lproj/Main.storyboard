@@ -449,8 +449,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuu-z8-Dq5">
-                                <rect key="frame" x="177.33333333333334" y="113" width="38.333333333333343" height="45"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuu-z8-Dq5">
+                                <rect key="frame" x="196.66666666666666" y="113" width="0.0" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Ssr-da-qPa"/>
                                 </constraints>

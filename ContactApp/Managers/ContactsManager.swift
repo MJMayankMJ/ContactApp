@@ -26,6 +26,7 @@ class ContactsManager {
         newContact.isFavorite = false
         
         saveContext()
+        FirebaseManager.shared.saveContactToFirebase(contact: newContact)
     }
     
     // MARK: - Fetch All Contacts and Group by First Letter
