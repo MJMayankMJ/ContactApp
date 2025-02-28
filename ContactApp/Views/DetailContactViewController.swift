@@ -66,9 +66,9 @@ class DetailContactViewController: UIViewController {
     }
 }
 
-
+// MARK: - Button Actions (not needed tho)
 extension DetailContactViewController {
-    // MARK: - Button Actions
+    
     @IBAction func messageButtonTapped(_ sender: UIButton) {
         showAlert(title: "Message", message: "Messaging \(viewModel.contact.name ?? "this contact").")
     }
