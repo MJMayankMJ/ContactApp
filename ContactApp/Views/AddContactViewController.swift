@@ -9,6 +9,7 @@ import UIKit
 
 protocol AddContactDelegate: AnyObject {
     func didAddContact(_ contact: Contact)
+    func didEditContact(_ contact: Contact)
 }
 
 class AddContactViewController: UIViewController {
@@ -18,30 +19,56 @@ class AddContactViewController: UIViewController {
     
     weak var delegate: AddContactDelegate?
     private let viewModel = AddContactViewModel() // ViewModel instance
-    
+    var contactToEdit: Contact? // Property to store the contact being edited
+
     override func viewDidLoad() {
         super.viewDidLoad()
+//        print("Name TextField: \(nameTextField)")
+//        print("Phone TextField: \(phoneTextField)")
         setupNavigationBar()
         setupViewModel()
+        setupForEditing()
     }
     
     // MARK: - Setup Navigation Bar
     private func setupNavigationBar() {
-        title = "New Contact"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: self,
-            action: #selector(saveContactPressed)
-        )
+        if contactToEdit != nil {
+            title = "Edit Contact"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .save,
+                target: self,
+                action: #selector(saveContactPressed)
+            )
+        } else {
+            title = "New Contact"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .save,
+                target: self,
+                action: #selector(saveContactPressed)
+            )
+        }
     }
     
     // MARK: - Setup ViewModel
     private func setupViewModel() {
         viewModel.onContactAdded = { [weak self] contact in
-            self?.delegate?.didAddContact(contact)
+            if let contact = self?.contactToEdit {
+                self?.delegate?.didEditContact(contact)
+            } else {
+                self?.delegate?.didAddContact(contact)
+            }
             self?.navigationController?.popViewController(animated: true)
         }
     }
+    
+    // MARK: - Setup for Editing
+    private func setupForEditing() {
+        guard let contact = contactToEdit else { return }
+        print(contact.name)
+        nameTextField.text = contact.name
+        phoneTextField.text = contact.phoneNumber
+    }
+    
     
     // MARK: - Save Contact
     @objc private func saveContactPressed() {
@@ -50,8 +77,14 @@ class AddContactViewController: UIViewController {
             showAlert("Missing Information", "Please enter both name and phone number.")
             return
         }
-        
-        viewModel.saveContact(name: name, phoneNumber: phoneNumber)
+
+        if let contact = contactToEdit {
+            // Update the existing contact
+            viewModel.editContact(contact: contact, name: name, phoneNumber: phoneNumber)
+        } else {
+            // Add a new contact
+            viewModel.saveContact(name: name, phoneNumber: phoneNumber)
+        }
     }
     
     // MARK: - Show Alert

@@ -129,14 +129,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="YFA-55-wrq">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="I5o-S1-OCU">
-                            <connections>
-                                <action selector="favoriteButtonTapped:" destination="V1H-zc-rfB" id="XxU-Ca-0ho"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="star" catalog="system" id="I5o-S1-OCU">
+                                <connections>
+                                    <action selector="favoriteButtonTapped:" destination="V1H-zc-rfB" id="XxU-Ca-0ho"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Edit" id="Gfs-k7-bCf">
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="V1H-zc-rfB" id="sw5-aE-J6n"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="callButton" destination="pRO-oO-iPh" id="GiI-6R-v4Z"/>
+                        <outlet property="editButton" destination="Gfs-k7-bCf" id="6th-So-O6M"/>
                         <outlet property="favoriteButton" destination="I5o-S1-OCU" id="l3E-tE-obn"/>
                         <outlet property="mailButton" destination="rfD-Z8-Fbx" id="40S-Al-wUY"/>
                         <outlet property="messageButton" destination="1HF-YZ-8zG" id="vou-QO-10K"/>

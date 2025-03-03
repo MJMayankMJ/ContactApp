@@ -47,19 +47,18 @@ class ContactsManager {
         }
     }
     
-        // for future use
-//     MARK: - Update Contact
-//    func updateContact(contact: Contact, name: String, phoneNumber: String) {
-//        contact.name = name
-//        contact.phoneNumber = phoneNumber
-//        saveContext()
-//    }
-//    
-//     MARK: - Delete Contact
-//    func deleteContact(contact: Contact) {
-//        context.delete(contact)
-//        saveContext()
-//    }
+    //MARK: - Update Contact
+    func updateContact(contact: Contact, name: String, phoneNumber: String) {
+        contact.name = name
+        contact.phoneNumber = phoneNumber
+        saveContext()
+    }
+    
+     // MARK: - Delete Contact
+    func deleteContact(contact: Contact) {
+        context.delete(contact)
+        saveContext()
+    }
     
     // MARK: - Toggle Favorite Status
     func toggleFavorite(contact: Contact) {

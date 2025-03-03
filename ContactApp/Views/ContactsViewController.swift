@@ -103,6 +103,10 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
 
 // MARK: - AddContactDelegate
 extension ContactsViewController: AddContactDelegate {
+    func didEditContact(_ contact: Contact) {
+        //
+    }
+    
     func didAddContact(_ contact: Contact) {
         viewModel.loadContacts() // Refresh sections after adding a new contact
     }

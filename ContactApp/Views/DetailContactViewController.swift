@@ -21,6 +21,7 @@ class DetailContactViewController: UIViewController {
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var mailButton: UIButton!
     @IBOutlet weak var videoButton: UIButton!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     weak var favoritesDelegate: FavoritesDelegate?
     var viewModel: DetailContactViewModel!
@@ -52,6 +53,26 @@ class DetailContactViewController: UIViewController {
         viewModel.toggleFavorite()
     }
 
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        //        let addContactVC = AddContactViewController()
+        //        addContactVC.contactToEdit = viewModel.contact
+        //        addContactVC.delegate = self
+        //        navigationController?.pushViewController(addContactVC, animated: true)
+        
+        // so whats the difference ...... why the above code doesnt work?
+        /* Direct Initialization (AddContactViewController()):
+         This creates the view controller in code only. It doesn’t load the design (the UI you built in the storyboard). So, your text fields (and other outlets) remain empty (nil).
+         Storyboard Initialization:
+         When you load it from the storyboard using an identifier, the view controller comes with its pre-designed interface. All your buttons, text fields, etc. are created and connected correctly.*/ // Expained by chatgpt dont know about how accruate this shit is
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let addContactVC = storyboard.instantiateViewController(withIdentifier: "AddContactViewController") as! AddContactViewController
+        addContactVC.contactToEdit = viewModel.contact
+        addContactVC.delegate = self
+        navigationController?.pushViewController(addContactVC, animated: true)
+        
+        
+    }
+    
     private func updateFavoriteButton() {
         let imageName = viewModel.isFavorite() ? "star.fill" : "star"
         favoriteButton.image = UIImage(systemName: imageName)
@@ -89,5 +110,18 @@ extension DetailContactViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
+    }
+}
+
+extension DetailContactViewController: AddContactDelegate {
+    
+    func didAddContact(_ contact: Contact) {
+        // Handle when a contact is added
+    }
+    
+    func didEditContact(_ contact: Contact) {
+        self.viewModel.contact = contact
+        nameLabel.text = contact.name
+        phoneLabel.text = "mobile number: \(contact.phoneNumber ?? "")"
     }
 }
