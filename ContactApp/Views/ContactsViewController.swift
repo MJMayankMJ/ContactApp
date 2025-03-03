@@ -17,6 +17,13 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         setupSearchController()
         setupViewModel()
         
+        DispatchQueue.global(qos: .background).async {
+            FirebaseManager.shared.syncLocalContacts(contacts: self.viewModel.allContacts)
+            DispatchQueue.main.async {
+                // ..... to do something on main thread
+            }
+        }
+        
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     

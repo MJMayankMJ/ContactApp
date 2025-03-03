@@ -8,7 +8,7 @@
 import Foundation
 
 class ContactsViewModel {
-    private var allContacts: [Contact] = []
+    var allContacts: [Contact] = []
     private(set) var contactGroups: [ContactGroup] = []
     private(set) var filteredGroups: [ContactGroup] = []
     

@@ -7,6 +7,7 @@
 
 
 import FirebaseDatabase
+import Foundation
 
 class FirebaseManager {
     static let shared = FirebaseManager()
@@ -15,52 +16,93 @@ class FirebaseManager {
     // MARK: - Save a Single Contact
     
     func saveContactToFirebase(contact: Contact) {
-        // convert the Contact into a dict
+        guard let phoneNumber = contact.phoneNumber else { return }
+        
+        // Sanitize phone number to make it Firebase-key friendly
+        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+
+        // Create dictionary
         let contactDict: [String: Any] = [
             "name": contact.name ?? "",
-            "phoneNumber": contact.phoneNumber ?? "",
+            "phoneNumber": phoneNumber,  // Store original number
             "isFavorite": contact.isFavorite
         ]
         
-        // generate a unique key for the contact.
-        let contactKey = databaseRef.child("contacts").childByAutoId().key ?? UUID().uuidString
-        
-        databaseRef.child("contacts").child(contactKey).setValue(contactDict) { error, _ in
+        // Use phone number as the Firebase key
+        databaseRef.child("contacts").child(sanitizedPhoneNumber).setValue(contactDict) { error, _ in
             if let error = error {
                 print("Error saving contact: \(error.localizedDescription)")
             } else {
-                print("Contact saved successfully with key \(contactKey)")
+                print("Contact saved successfully with key \(sanitizedPhoneNumber)")
             }
         }
     }
+
     
     // MARK: - Sync Local Contacts to Firebase
     
+//    func syncLocalContacts(contacts: [Contact]) {
+//        databaseRef.child("contacts").observeSingleEvent(of: .value) { snapshot in
+//            var existingContacts = Set<String>()
+//
+//            // extract existing contacts' phone numbers from Firebase
+//            if let contactsData = snapshot.value as? [String: [String: Any]] {
+//                for (_, contactInfo) in contactsData {
+//                    if let phoneNumber = contactInfo["phoneNumber"] as? String {
+//                        existingContacts.insert(phoneNumber)
+//                    }
+//                }
+//            }
+//
+//            // upload only new contacts (not in Firebase)
+//            for contact in contacts {
+//                if let phoneNumber = contact.phoneNumber, !existingContacts.contains(phoneNumber) {
+//                    self.saveContactToFirebase(contact: contact)
+//                }
+//            }
+//        }
+//    }
+    
     func syncLocalContacts(contacts: [Contact]) {
-        for contact in contacts {
-            saveContactToFirebase(contact: contact)
+        databaseRef.child("contacts").observeSingleEvent(of: .value) { snapshot in
+            var existingContacts = [String: String]() // [phoneNumber: name]
+
+            // Extract existing contacts' phone numbers and names from Firebase
+            if let contactsData = snapshot.value as? [String: [String: Any]] {
+                for (_, contactInfo) in contactsData {
+                    if let phoneNumber = contactInfo["phoneNumber"] as? String,
+                       let name = contactInfo["name"] as? String {
+                        existingContacts[phoneNumber] = name
+                    }
+                }
+            }
+
+            // Compare and sync contacts
+            for contact in contacts {
+                guard let phoneNumber = contact.phoneNumber else { continue }
+
+                if let existingName = existingContacts[phoneNumber] {
+                    // If contact exists but name is different, update it
+                    if existingName != contact.name {
+                        self.updateContactInFirebase(phoneNumber: phoneNumber, name: contact.name!)
+                    }
+                } else {
+                    // New contact, save to Firebase
+                    self.saveContactToFirebase(contact: contact)
+                }
+            }
         }
     }
     
-    // MARK: - Observe Contacts from Firebase
-    
-    /// Observes the "contacts" node in Firebase and returns an array of Contact objects via the completion handler.
-    func observeContacts(completion: @escaping ([Contact]) -> Void) {
-        databaseRef.child("contacts").observe(.value) { snapshot in
-            var contacts: [Contact] = []
-            for child in snapshot.children {
-                if let childSnapshot = child as? DataSnapshot,
-                   let dict = childSnapshot.value as? [String: Any],
-                   let name = dict["name"] as? String,
-                   let phoneNumber = dict["phoneNumber"] as? String,
-                   let isFavorite = dict["isFavorite"] as? Bool {
-                    
-                    // Create a Contact object. Adjust the initializer as needed.
-                    let contact = Contact(name: name, phoneNumber: phoneNumber, isFavorite: isFavorite)
-                    contacts.append(contact)
-                }
+    func updateContactInFirebase(phoneNumber: String, name: String) {
+        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+
+        databaseRef.child("contacts").child(sanitizedPhoneNumber).updateChildValues(["name": name]) { error, _ in
+            if let error = error {
+                print("Error updating contact name: \(error.localizedDescription)")
+            } else {
+                print("Contact name updated successfully for \(sanitizedPhoneNumber)")
             }
-            completion(contacts)
         }
     }
 }
