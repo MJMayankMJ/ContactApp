@@ -13,7 +13,6 @@ class ContactsManager {
     
     private init() {}
     
-    // MARK: - Core Data Context
     private var context: NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
@@ -21,7 +20,7 @@ class ContactsManager {
     // MARK: - Save a New Contact
     func addContact(name: String, phoneNumber: String) {
         let newContact = Contact(context: context)
-        newContact.id = UUID().uuidString    // Assign a unique ID
+        newContact.id = UUID().uuidString
         newContact.name = name
         newContact.phoneNumber = phoneNumber
         newContact.isFavorite = false

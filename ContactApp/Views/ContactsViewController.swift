@@ -171,7 +171,7 @@ extension ContactsViewController {
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-                print(contact.id)
+                print(contact)
                 ContactsManager.shared.deleteContact(contact: contact)
                 FirebaseManager.shared.deleteContactFromFirebase(contact: contact)
                 

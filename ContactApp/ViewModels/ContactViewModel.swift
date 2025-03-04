@@ -53,5 +53,6 @@ class ContactsViewModel {
     func contact(at indexPath: IndexPath) -> Contact {
         return isSearching ? filteredGroups[indexPath.section].contacts[indexPath.row] : contactGroups[indexPath.section].contacts[indexPath.row]
     }
+    
 }
 
