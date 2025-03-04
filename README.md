@@ -1,4 +1,4 @@
-![contactAnimation](https://github.com/user-attachments/assets/f0b0467f-9ab9-4440-abda-27d60a4801f9)# Contact Management App
+# Contact Management App
 
 A simple contact management app built using Core Data and Firebase to store and manage contacts.  The app allows users to add, edit, delete, and mark contacts as favorites. It synchronizes data locally with Core Data and remotely with Firebase.
 
