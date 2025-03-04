@@ -22,6 +22,7 @@ class DetailContactViewController: UIViewController {
     @IBOutlet weak var mailButton: UIButton!
     @IBOutlet weak var videoButton: UIButton!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIButton!
     
     weak var favoritesDelegate: FavoritesDelegate?
     var viewModel: DetailContactViewModel!
@@ -29,6 +30,8 @@ class DetailContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        deleteButton.setTitleColor(.red, for: .normal)
+        deleteButton.tintColor = .red
         setupViewModel()
     }
     
@@ -71,6 +74,28 @@ class DetailContactViewController: UIViewController {
         navigationController?.pushViewController(addContactVC, animated: true)
         
         
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        let contact = viewModel.contact
+        let alert = UIAlertController(title: "Delete Contact",
+                                      message: "Are you sure you want to delete \(contact.name ?? "this contact")?",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            
+            guard let self = self else { return }
+            FirebaseManager.shared.deleteContactFromFirebase(contact: contact)
+            ContactsManager.shared.deleteContact(contact: contact)
+            
+            // notification
+            NotificationCenter.default.post(name: Notification.Name("ContactDeleted"), object: contact)
+            
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     private func updateFavoriteButton() {

@@ -64,7 +64,6 @@ class AddContactViewController: UIViewController {
     // MARK: - Setup for Editing
     private func setupForEditing() {
         guard let contact = contactToEdit else { return }
-        print(contact.name)
         nameTextField.text = contact.name
         phoneTextField.text = contact.phoneNumber
     }

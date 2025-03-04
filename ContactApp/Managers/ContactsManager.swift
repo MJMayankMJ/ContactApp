@@ -20,7 +20,8 @@ class ContactsManager {
     
     // MARK: - Save a New Contact
     func addContact(name: String, phoneNumber: String) {
-        let newContact = Contact(context: context) // Using Core Data entity
+        let newContact = Contact(context: context)
+        newContact.id = UUID().uuidString    // Assign a unique ID
         newContact.name = name
         newContact.phoneNumber = phoneNumber
         newContact.isFavorite = false
@@ -28,6 +29,7 @@ class ContactsManager {
         saveContext()
         FirebaseManager.shared.saveContactToFirebase(contact: newContact)
     }
+
     
     // MARK: - Fetch All Contacts and Group by First Letter
     func fetchGroupedContacts() -> [ContactGroup] {
@@ -128,11 +130,13 @@ extension ContactsManager {
                 contact1.name = names[i]
                 contact1.phoneNumber = "9876543\(i)"
                 contact1.isFavorite = false
+                contact1.id = UUID().uuidString
                 
                 let contact2 = Contact(context: context)
                 contact2.name = names[i + 1]
                 contact2.phoneNumber = "9876543\(i + 1)"
                 contact2.isFavorite = false
+                contact2.id = UUID().uuidString
             }
             print("Preloading contacts started...")
             saveContext()

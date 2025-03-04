@@ -17,6 +17,9 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         setupSearchController()
         setupViewModel()
         
+        //listening notification from detail view
+        NotificationCenter.default.addObserver(self, selector: #selector(contactDeleted(_:)), name: Notification.Name("ContactDeleted"), object: nil)
+        
         DispatchQueue.global(qos: .background).async {
             FirebaseManager.shared.syncLocalContacts(contacts: self.viewModel.allContacts)
             DispatchQueue.main.async {
@@ -26,6 +29,14 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         
         navigationItem.hidesSearchBarWhenScrolling = false
     }
+    
+    //i still dont know why i need this after i updated the delegate..... 🤔
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.loadContacts()
+        tableView.reloadData()
+    }
+
     
     // MARK: - Setup Navigation Bar
     private func setupNavigationBar() {
@@ -62,6 +73,16 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         addVC.delegate = self
         navigationController?.pushViewController(addVC, animated: true)
     }
+    
+    @objc private func contactDeleted(_ notification: Notification) {
+        // Optionally, retrieve the deleted contact from the notification if needed:
+        // if let deletedContact = notification.object as? Contact { ... }
+        
+        // Reload your contacts data and refresh the table view
+        viewModel.loadContacts()
+        tableView.reloadData()
+    }
+
 
     // MARK: - UITableView Data Source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,15 +120,67 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         detailVC.viewModel = DetailContactViewModel(contact: contact)
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+            let contact = viewModel.contact(at: indexPath)
+            
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+                
+                let messageAction = UIAction(title: "Message", image: UIImage(systemName: "message")) { [weak self] _ in
+                    self?.showAlert(title: "Message", message: "Messaging \(contact.name ?? "Contact")...")
+                }
+                
+                let callAction = UIAction(title: "Call", image: UIImage(systemName: "phone")) { [weak self] _ in
+                    self?.showAlert(title: "Call", message: "Calling \(contact.name ?? "Contact")...")
+                }
+                
+                let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+                    self?.deleteContact(contact)
+                }
+                
+                return UIMenu(title: "", children: [messageAction, callAction, deleteAction])
+            }
+        }
 }
 
 // MARK: - AddContactDelegate
 extension ContactsViewController: AddContactDelegate {
     func didEditContact(_ contact: Contact) {
-        //
+        // reload the contacts data from Core Data
+        viewModel.loadContacts()
+        // refresh the table view ----- contact is repositioned in the correct section
+        tableView.reloadData()
     }
     
     func didAddContact(_ contact: Contact) {
-        viewModel.loadContacts() // Refresh sections after adding a new contact
+        viewModel.loadContacts()
+        tableView.reloadData()
     }
+}
+
+extension ContactsViewController {
+    private func showAlert(title: String, message: String) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        
+        // MARK: - Handle Contact Deletion
+        private func deleteContact(_ contact: Contact) {
+            let alert = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete \(contact.name ?? "this contact")?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                print(contact.id)
+                ContactsManager.shared.deleteContact(contact: contact)
+                FirebaseManager.shared.deleteContactFromFirebase(contact: contact)
+                
+                self?.viewModel.loadContacts() // Refresh List
+                self?.tableView.reloadData()
+                
+                NotificationCenter.default.post(name: Notification.Name("ContactDeleted"), object: contact)
+            })
+            
+            present(alert, animated: true, completion: nil)
+        }
 }

@@ -19,6 +19,7 @@ extension Contact {
     @NSManaged public var isFavorite: Bool
     @NSManaged public var name: String?
     @NSManaged public var phoneNumber: String?
+    @NSManaged public var id: String?
 
 }
 

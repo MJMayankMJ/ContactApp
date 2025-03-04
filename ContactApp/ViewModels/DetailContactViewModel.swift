@@ -27,6 +27,7 @@ class DetailContactViewModel {
     // Toggle favorite status
     func toggleFavorite() {
         favoritesManager.toggleFavorite(contact)
+        FirebaseManager.shared.updateContactInFirebase(contact: contact)
         let isNowFavorite = isFavorite()
         onFavoriteStatusChanged?(isNowFavorite)
     }

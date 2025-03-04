@@ -16,27 +16,28 @@ class FirebaseManager {
     // MARK: - Save a Single Contact
     
     func saveContactToFirebase(contact: Contact) {
-        guard let phoneNumber = contact.phoneNumber else { return }
-        
-        // sanitizing phone number to make it Firebase-key friendly
-        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-
-        // Create dictionary
-        let contactDict: [String: Any] = [
-            "name": contact.name ?? "",
-            "phoneNumber": phoneNumber,
-            "isFavorite": contact.isFavorite
-        ]
-        
-        // Use phone number as the Firebase key
-        databaseRef.child("contacts").child(sanitizedPhoneNumber).setValue(contactDict) { error, _ in
-            if let error = error {
-                print("Error saving contact: \(error.localizedDescription)")
-            } else {
-                print("Contact saved successfully with key \(sanitizedPhoneNumber)")
+            // Ensure the contact has a unique id. If not, you can generate one.
+            if contact.id == nil {
+                contact.id = UUID().uuidString
+            }
+            guard let uniqueId = contact.id else { return }
+            
+            // Create dictionary to save
+            let contactDict: [String: Any] = [
+                "name": contact.name ?? "",
+                "phoneNumber": contact.phoneNumber ?? "",
+                "isFavorite": contact.isFavorite
+            ]
+            
+            // Save using the unique id as the key
+            databaseRef.child("contacts").child(uniqueId).setValue(contactDict) { error, _ in
+                if let error = error {
+                    print("Error saving contact: \(error.localizedDescription)")
+                } else {
+                    print("Contact saved successfully with key \(uniqueId)")
+                }
             }
         }
-    }
 
     
     // MARK: - Sync Firebase from local contacts
@@ -65,64 +66,77 @@ class FirebaseManager {
     
     func syncLocalContacts(contacts: [Contact]) {
         databaseRef.child("contacts").observeSingleEvent(of: .value) { snapshot in
-            var existingContacts = [String: String]() // [phoneNumber: name]
-
-            // Extract existing contacts' phone numbers and names from Firebase
-            if let contactsData = snapshot.value as? [String: [String: Any]] {
-                for (_, contactInfo) in contactsData {
-                    if let phoneNumber = contactInfo["phoneNumber"] as? String,
-                       let name = contactInfo["name"] as? String {
-                        existingContacts[phoneNumber] = name
-                    }
-                }
-            }
-
-            // Compare and sync contacts
+            // Get Firebase contacts as a dictionary; if none exist, use an empty dictionary
+            let firebaseContacts = snapshot.value as? [String: [String: Any]] ?? [:]
+            
+            // Iterate through all local contacts
             for contact in contacts {
-                guard let phoneNumber = contact.phoneNumber else { continue }
-
-                if let existingName = existingContacts[phoneNumber] {
-                    // If contact exists but name is different, update it
-                    if existingName != contact.name {
-                        self.updateContactInFirebaseByNotDeleting(phoneNumber: phoneNumber, name: contact.name!)
+                // Ensure the local contact has a unique id; if not, assign one.
+                if contact.id == nil {
+                    contact.id = UUID().uuidString
+                }
+                guard let uniqueId = contact.id else { continue }
+                
+                // Build a dictionary representing the local contact data
+                let localData: [String: Any] = [
+                    "name": contact.name ?? "",
+                    "phoneNumber": contact.phoneNumber ?? "",
+                    "isFavorite": contact.isFavorite
+                ]
+                
+                if let firebaseData = firebaseContacts[uniqueId] {
+                    // Compare entire dictionaries (firebase vs local)
+                    if !NSDictionary(dictionary: firebaseData).isEqual(to: localData) {
+                        // Data is different; update the Firebase record
+                        self.updateContactInFirebase(contact: contact)
                     }
                 } else {
-                    // New contact, save to Firebase
+                    // No record found in Firebase, so save this new contact
                     self.saveContactToFirebase(contact: contact)
                 }
             }
         }
     }
-    
-    //just to be slighly more efficient
-    private func updateContactInFirebaseByNotDeleting(phoneNumber: String, name: String) {
-        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
 
-        databaseRef.child("contacts").child(sanitizedPhoneNumber).updateChildValues(["name": name]) { error, _ in
-            if let error = error {
-                print("Error updating contact name: \(error.localizedDescription)")
-            } else {
-                print("Contact name updated successfully for \(sanitizedPhoneNumber)")
-            }
-        }
-    }
+    
+//    //just to be slighly more efficient
+//    private func updateContactInFirebaseByNotDeleting(phoneNumber: String, name: String) {
+//        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+//
+//        databaseRef.child("contacts").child(sanitizedPhoneNumber).updateChildValues(["name": name]) { error, _ in
+//            if let error = error {
+//                print("Error updating contact name: \(error.localizedDescription)")
+//            } else {
+//                print("Contact name updated successfully for \(sanitizedPhoneNumber)")
+//            }
+//        }
+//    }
     
     //here we delete the previous contact and than add new one cz the key is no. and if the no, change it creates new contact with old being there as well .... can lead to duplicates while in core data this doesnt happen (i think so)
     func updateContactInFirebase(contact: Contact) {
-        guard let phoneNumber = contact.phoneNumber else { return }
-        let sanitizedPhoneNumber = phoneNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        
+        guard let uniqueId = contact.id else { return }
         let updatedData: [String: Any] = [
             "name": contact.name ?? "",
             "phoneNumber": contact.phoneNumber ?? "",
             "isFavorite": contact.isFavorite
         ]
         
-        databaseRef.child("contacts").child(sanitizedPhoneNumber).updateChildValues(updatedData) { error, _ in
+        databaseRef.child("contacts").child(uniqueId).updateChildValues(updatedData) { error, _ in
             if let error = error {
                 print("Error updating contact: \(error.localizedDescription)")
             } else {
                 print("Contact updated successfully")
+            }
+        }
+    }
+    
+    func deleteContactFromFirebase(contact: Contact) {
+        guard let uniqueId = contact.id else { return }
+        databaseRef.child("contacts").child(uniqueId).removeValue { error, _ in
+            if let error = error {
+                print("Error deleting contact: \(error.localizedDescription)")
+            } else {
+                print("Contact deleted successfully from Firebase")
             }
         }
     }
