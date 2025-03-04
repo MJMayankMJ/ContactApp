@@ -31,4 +31,4 @@ A simple contact management app built using Core Data and Firebase to store and 
 Clone this repository to your local machine using:
 
 ```bash
-git clone https://github.com/yourusername/ContactManagementApp.git
+git clone https://github.com/MJMayankMJ/ContactApp.git
