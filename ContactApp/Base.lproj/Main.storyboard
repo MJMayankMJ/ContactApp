@@ -3,12 +3,13 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Contacts-->
+        <!--Contact-->
         <scene sceneID="yyQ-6X-Xjt">
             <objects>
                 <tableViewController id="WgX-yU-TlJ" customClass="ContactsViewController" customModule="ContactApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,7 +32,7 @@
                             <outlet property="delegate" destination="WgX-yU-TlJ" id="lys-Gx-4eX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contacts" id="Yl9-Aa-OhS" customClass="Sear">
+                    <navigationItem key="navigationItem" title="Contact" id="Yl9-Aa-OhS" customClass="Sear">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="VKf-tj-rpo"/>
                     </navigationItem>
                     <connections>
@@ -114,13 +115,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMh-JO-9KL">
+                                <rect key="frame" x="2" y="290.66666666666669" width="138.33333333333334" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Delete Contact">
+                                    <color key="baseForegroundColor" name="E80B26"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="V1H-zc-rfB" eventType="touchUpInside" id="VPv-5B-ygK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CTF-nb-LRa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VLC-7z-9Hd" firstAttribute="leading" secondItem="CTF-nb-LRa" secondAttribute="leading" constant="3" id="0AL-HC-DAo"/>
+                            <constraint firstItem="CTF-nb-LRa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SMh-JO-9KL" secondAttribute="trailing" symbolic="YES" id="45x-Ql-ZNS"/>
                             <constraint firstItem="mua-bc-0Rf" firstAttribute="top" secondItem="CTF-nb-LRa" secondAttribute="top" constant="30" id="BL4-9e-jRp"/>
                             <constraint firstItem="mua-bc-0Rf" firstAttribute="centerX" secondItem="LHO-3X-n8f" secondAttribute="centerX" id="Bvy-y5-xMK"/>
+                            <constraint firstItem="SMh-JO-9KL" firstAttribute="top" secondItem="YD7-0M-XWb" secondAttribute="bottom" constant="15" id="Fyp-T1-s2X"/>
+                            <constraint firstItem="SMh-JO-9KL" firstAttribute="leading" secondItem="CTF-nb-LRa" secondAttribute="leading" constant="2" id="Hph-gV-kkz"/>
                             <constraint firstItem="CTF-nb-LRa" firstAttribute="trailing" secondItem="VLC-7z-9Hd" secondAttribute="trailing" constant="3" id="Vdk-cG-fHG"/>
                             <constraint firstItem="CTF-nb-LRa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YD7-0M-XWb" secondAttribute="trailing" symbolic="YES" id="eYz-aQ-wA0"/>
                             <constraint firstItem="YD7-0M-XWb" firstAttribute="leading" secondItem="CTF-nb-LRa" secondAttribute="leading" constant="5" id="gKg-Ue-TBh"/>
@@ -129,14 +143,23 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="YFA-55-wrq">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="I5o-S1-OCU">
-                            <connections>
-                                <action selector="favoriteButtonTapped:" destination="V1H-zc-rfB" id="XxU-Ca-0ho"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="star" catalog="system" id="I5o-S1-OCU">
+                                <connections>
+                                    <action selector="favoriteButtonTapped:" destination="V1H-zc-rfB" id="XxU-Ca-0ho"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Edit" id="Gfs-k7-bCf">
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="V1H-zc-rfB" id="sw5-aE-J6n"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="callButton" destination="pRO-oO-iPh" id="GiI-6R-v4Z"/>
+                        <outlet property="deleteButton" destination="SMh-JO-9KL" id="dDZ-Xk-UxO"/>
+                        <outlet property="editButton" destination="Gfs-k7-bCf" id="6th-So-O6M"/>
                         <outlet property="favoriteButton" destination="I5o-S1-OCU" id="l3E-tE-obn"/>
                         <outlet property="mailButton" destination="rfD-Z8-Fbx" id="40S-Al-wUY"/>
                         <outlet property="messageButton" destination="1HF-YZ-8zG" id="vou-QO-10K"/>
@@ -147,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-JO-vcB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="-445"/>
+            <point key="canvasLocation" x="89" y="280"/>
         </scene>
         <!--Add Contacts-->
         <scene sceneID="1JK-on-ftZ">
@@ -199,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpM-ct-LDL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072.5190839694656" y="346.47887323943661"/>
+            <point key="canvasLocation" x="88" y="-484"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="QfF-xw-Bsx">
@@ -249,11 +272,11 @@
             </objects>
             <point key="canvasLocation" x="-976" y="-869"/>
         </scene>
-        <!--Contacts-->
+        <!--Contact-->
         <scene sceneID="0yn-Pd-mQ6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tYs-Ea-cz5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" image="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
+                    <tabBarItem key="tabBarItem" title="Contact" image="person.circle.fill" catalog="system" id="qWf-TP-Czi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sbO-bZ-rka">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -277,13 +300,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="EQe-WU-W4L">
-                                <rect key="frame" x="115.66666666666669" y="321.33333333333331" width="162" height="209.33333333333331"/>
+                                <rect key="frame" x="115.66666666666669" y="320.66666666666669" width="162" height="210.66666666666669"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="3O7-EZ-27x">
-                                        <rect key="frame" x="0.0" y="0.0" width="162" height="34.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="162" height="34.666666666666664"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2L-Uf-Fie">
-                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="E2L-Uf-Fie" secondAttribute="height" multiplier="1:1" id="am4-Ci-kan"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="1"/>
                                                 <connections>
@@ -291,7 +317,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAJ-A4-fNf">
-                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="sAJ-A4-fNf" secondAttribute="height" multiplier="1:1" id="dHs-pp-f9V"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="2"/>
                                                 <connections>
@@ -299,7 +328,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-jv-sRI">
-                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="fv4-jv-sRI" secondAttribute="height" multiplier="1:1" id="uP4-D9-hTf"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="3"/>
                                                 <connections>
@@ -307,12 +339,19 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="sAJ-A4-fNf" firstAttribute="width" secondItem="E2L-Uf-Fie" secondAttribute="width" id="Beb-uU-Zh8"/>
+                                            <constraint firstItem="fv4-jv-sRI" firstAttribute="width" secondItem="E2L-Uf-Fie" secondAttribute="width" id="LrM-Ik-V1D"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="khM-Hf-MtB">
-                                        <rect key="frame" x="0.0" y="58.333333333333371" width="162" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="58.666666666666629" width="162" height="34.666666666666657"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voc-V2-sWL">
-                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="voc-V2-sWL" secondAttribute="height" multiplier="1:1" id="y3i-2H-DMh"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="4"/>
                                                 <connections>
@@ -320,7 +359,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJ6-21-UMz">
-                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="WJ6-21-UMz" secondAttribute="height" multiplier="1:1" id="95L-jU-ZwS"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="5"/>
                                                 <connections>
@@ -328,7 +370,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mp-No-Uy6">
-                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="5mp-No-Uy6" secondAttribute="height" multiplier="1:1" id="0PY-sh-suq"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="6"/>
                                                 <connections>
@@ -336,12 +381,19 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="WJ6-21-UMz" firstAttribute="width" secondItem="voc-V2-sWL" secondAttribute="width" id="PbE-7p-mWh"/>
+                                            <constraint firstItem="5mp-No-Uy6" firstAttribute="width" secondItem="voc-V2-sWL" secondAttribute="width" id="YaR-co-2O9"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="w73-z1-dOZ">
-                                        <rect key="frame" x="0.0" y="116.66666666666667" width="162" height="34.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="117.33333333333333" width="162" height="34.666666666666671"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLh-JL-EeL">
-                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="uLh-JL-EeL" secondAttribute="height" multiplier="1:1" id="4CB-cL-Pvl"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="7"/>
                                                 <connections>
@@ -349,7 +401,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0o3-7M-Els">
-                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="0o3-7M-Els" secondAttribute="height" multiplier="1:1" id="E1A-t2-zb4"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="8"/>
                                                 <connections>
@@ -357,7 +412,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGP-14-UGl">
-                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="jGP-14-UGl" secondAttribute="height" multiplier="1:1" id="O00-4Q-CQA"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="9"/>
                                                 <connections>
@@ -365,12 +423,19 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="jGP-14-UGl" firstAttribute="width" secondItem="uLh-JL-EeL" secondAttribute="width" id="O2C-PV-x0c"/>
+                                            <constraint firstItem="0o3-7M-Els" firstAttribute="width" secondItem="uLh-JL-EeL" secondAttribute="width" id="VFP-Xi-MUS"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="Yxl-Lc-J0V">
-                                        <rect key="frame" x="0.0" y="175" width="162" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="176" width="162" height="34.666666666666657"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-jg-4DS">
-                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="hXg-jg-4DS" secondAttribute="height" multiplier="1:1" id="FTb-Bz-7wt"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="*"/>
                                                 <connections>
@@ -378,7 +443,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U1i-wo-CYB">
-                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="63.666666666666671" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="U1i-wo-CYB" secondAttribute="height" multiplier="1:1" id="GXA-j2-U2w"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="0"/>
                                                 <connections>
@@ -386,7 +454,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMW-xJ-US1">
-                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.333333333333336"/>
+                                                <rect key="frame" x="127.33333333333333" y="0.0" width="34.666666666666671" height="34.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="DMW-xJ-US1" secondAttribute="height" multiplier="1:1" id="Svj-7x-LZA"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="gray" title="#"/>
                                                 <connections>
@@ -394,6 +465,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="U1i-wo-CYB" firstAttribute="width" secondItem="hXg-jg-4DS" secondAttribute="width" id="6zy-5C-EmF"/>
+                                            <constraint firstItem="DMW-xJ-US1" firstAttribute="width" secondItem="hXg-jg-4DS" secondAttribute="width" id="GNe-uP-gK4"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -407,15 +482,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="jex-P9-REG">
-                                <rect key="frame" x="105.00000000000001" y="560.66666666666663" width="183.33333333333337" height="34.333333333333371"/>
+                                <rect key="frame" x="89.666666666666686" y="561.33333333333337" width="214" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xc-NE-MNy">
-                                        <rect key="frame" x="0.0" y="0.0" width="24" height="34.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="5Xc-NE-MNy" secondAttribute="height" multiplier="1:1" id="AY6-Mu-toj"/>
+                                            <constraint firstAttribute="width" secondItem="5Xc-NE-MNy" secondAttribute="height" id="ut9-93-Eij"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j72-H3-THb">
-                                        <rect key="frame" x="53" y="0.0" width="49.333333333333343" height="34.333333333333336"/>
+                                        <rect key="frame" x="80.999999999999986" y="0.0" width="52.000000000000014" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="j72-H3-THb" secondAttribute="height" multiplier="1:1" id="CMn-zn-7MU"/>
+                                            <constraint firstAttribute="width" secondItem="j72-H3-THb" secondAttribute="height" multiplier="1:1" id="HL9-cv-YKQ"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" image="phone" catalog="system">
                                             <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
@@ -425,7 +508,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yr0-A1-0sz">
-                                        <rect key="frame" x="131.33333333333334" y="0.0" width="52" height="34.333333333333336"/>
+                                        <rect key="frame" x="162" y="0.0" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Yr0-A1-0sz" secondAttribute="height" multiplier="1:1" id="JWq-xL-mOQ"/>
+                                            <constraint firstAttribute="width" secondItem="Yr0-A1-0sz" secondAttribute="height" multiplier="1:1" id="uIY-bJ-nYq"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="delete.left.fill" catalog="system">
                                             <color key="baseForegroundColor" systemColor="opaqueSeparatorColor"/>
@@ -435,6 +522,10 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Yr0-A1-0sz" firstAttribute="width" secondItem="5Xc-NE-MNy" secondAttribute="width" id="Bsb-Jm-004"/>
+                                    <constraint firstItem="j72-H3-THb" firstAttribute="width" secondItem="5Xc-NE-MNy" secondAttribute="width" id="xZT-vA-GYa"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="22c-tL-vYq"/>
@@ -464,8 +555,7 @@
                         <outlet property="buttonCall" destination="j72-H3-THb" id="lQE-bL-1OE"/>
                         <outlet property="buttonHash" destination="DMW-xJ-US1" id="KuX-uN-KAI"/>
                         <outlet property="buttonMult" destination="hXg-jg-4DS" id="FcC-YM-f1f"/>
-                        <outlet property="emptyButton" destination="5Xc-NE-MNy" id="Eeh-07-WwD"/>
-                        <outlet property="numberLabel" destination="Vuu-z8-Dq5" id="2pv-7Q-FQc"/>
+                        <outlet property="numberLabel" destination="Vuu-z8-Dq5" id="tQh-ri-gbt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eiq-6h-2Hs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -522,17 +612,20 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="video" catalog="system" width="128" height="82"/>
+        <namedColor name="E80B26">
+            <color red="0.90980392156862744" green="0.043137254901960784" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
