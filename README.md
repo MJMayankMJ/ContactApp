@@ -25,27 +25,6 @@ A simple contact management app built using Core Data and Firebase to store and 
 - iOS 12.0 or later
 - Swift 5.0 or later
 
-## MVVM architecture used
-
-├── CoreDataManager.swift        # Manages Core Data operations
-├── FirebaseManager.swift        # Manages Firebase operations
-├── FavoriteManager.swift        # Manages Firebase operations
-├── Models
-│   └── ContactsModel.xcdatamodeld
-├── ViewModels
-│   ├── DetailContactViewModel.swift # ViewModel for contact details
-│   ├── ContactsViewModel.swift   # ContactsViewModel for contact list
-│   ├── AddContactsViewModel.swift   # AddViewModel for contact list
-│   └── DetailContactsViewModel.swift   # DetailContactViewModel for contact list
-├── ViewControllers
-│   ├── ContactViewController.swift  # Displays a list of contacts
-│   ├── AddContactViewController.swift  # Displays add contact screen
-│   ├── KeypadViewController.swift  # Displays a keypad screen
-│   ├── FavoriteViewController.swift  # Displays a list of contacts
-│   └── DetailContactViewController.swift # Displays details for a selected contact
-└──  Main.storyboard         # Storyboard with UI elements
-
-
 ## Installation
 
 ### 1. Clone the repository
